@@ -1,0 +1,19 @@
+{
+  "version": "2.2.1",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs", // 1
+    "lib": ["dom", "es2015.promise", "es5"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "build" // 2
+  },
+  "files": [
+    "server/app.ts"
+  ],
+  "exclude": [
+    "node_modules", // 3
+    "data",
+    "client" // 4
+  ]
+}
