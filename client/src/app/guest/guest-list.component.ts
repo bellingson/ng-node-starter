@@ -47,10 +47,7 @@ export class GuestListComponent implements OnInit {
                                     guest.endM = moment(guest.end);
                                     guest.daysAway = guest.startM.diff(now,'days');
 
-                                    console.log(moment(guest.start));
-
-
-
+                                    // console.log(moment(guest.start));
                                     return guest;
                                 }).valueOf();
 
