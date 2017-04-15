@@ -21,8 +21,21 @@ var CalendarService = (function () {
     CalendarService.prototype.calendarCacheFilePath = function () {
         return path.join(this.dataDirPath(), '/ical.ics');
     };
-    CalendarService.prototype.calendarJsonFilePath = function () {
-        return path.join(this.dataDirPath(), '/ical.json');
+    CalendarService.prototype.lastUpdate = function () {
+        var stat = fs.statSync(this.calendarCacheFilePath());
+        return stat.mtime;
+    };
+    CalendarService.prototype.refreshCalendar = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.fetchCalendar()
+                .then(_this.writeCalendarToCache.bind(_this))
+                .then(_this.importCalendarToDb.bind(_this))
+                .then(function () {
+                resolve(OK);
+            })
+                .catch(reject);
+        });
     };
     CalendarService.prototype.fetchCalendar = function () {
         var file = this.calendarCacheFilePath();
@@ -33,9 +46,12 @@ var CalendarService = (function () {
         };
         console.log('fetch calendar');
         return new Promise(function (resolve, reject) {
+            var c = 0;
             https.get(options, function (res) {
+                // console.log('statusCode:', res.statusCode);
+                // console.log('headers:', res.headers);
                 res.on('data', function (d) {
-                    resolve(d);
+                    resolve(d.toString());
                 });
             });
         });
@@ -43,23 +59,13 @@ var CalendarService = (function () {
     CalendarService.prototype.writeCalendarToCache = function (data) {
         console.log('got calendar');
         var file = this.calendarCacheFilePath();
-        console.log(file);
         return new Promise(function (resolve, reject) {
-            fs.writeFile(file, 'utf8', data, function (err) {
+            fs.writeFile(file, data, 'utf8', function (err) {
                 if (err) {
                     reject(err);
                     return;
                 }
                 resolve();
-            });
-        });
-    };
-    CalendarService.prototype.readCalendarFromJson = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            var file = _this.calendarJsonFilePath();
-            fs.readFile(file, 'utf8', function (err, data) {
-                resolve(JSON.parse(data));
             });
         });
     };
@@ -91,7 +97,7 @@ var CalendarService = (function () {
     };
     CalendarService.prototype.insertOrUpdateGuestToDb = function (guests, event) {
         return new Promise(function (resolve, reject) {
-            guests.find({ uid: event.uid }).toArray(function (err, docs) {
+            guests.find({ code: event.code }).toArray(function (err, docs) {
                 if (docs.length == 0) {
                     guests.insertOne(event, function (err, result) {
                         // console.log(err);
@@ -125,10 +131,7 @@ var CalendarService = (function () {
         mongodb_1.MongoClient.connect(this.dbUrl, function (err, db) {
             assert.equal(null, err);
             var guests = db.collection('guests');
-            console.log('start update...');
             guests.updateOne({ uid: guest.uid }, guest, function (err, ur) {
-                console.log('update... complete');
-                console.log(err);
                 db.close();
                 if (err) {
                     r.error(err);
@@ -140,18 +143,6 @@ var CalendarService = (function () {
             });
         });
         return r;
-    };
-    CalendarService.prototype.translateCalendarToJson = function () {
-        var _this = this;
-        var file = this.calendarJsonFilePath();
-        return new Promise(function (resolve, reject) {
-            _this.readCalendarStream().then(function (events) {
-                var json = JSON.stringify(events, null, '\t');
-                fs.writeFile(file, json, function (err) {
-                    resolve();
-                });
-            }).catch(reject);
-        });
     };
     CalendarService.prototype.readCalendarStream = function () {
         var _this = this;
@@ -190,7 +181,7 @@ var CalendarService = (function () {
             event.end = this.parseDateFromCalLine(line);
         }
         if (_.startsWith(line, 'SUMMARY')) {
-            event.summary = this.parseStringFromCalLine(line);
+            this.parseSummaryFromCalLine(line, event);
         }
         if (_.startsWith(line, 'UID')) {
             event.uid = this.parseStringFromCalLine(line);
@@ -199,6 +190,14 @@ var CalendarService = (function () {
         // if(_.startsWith(line,'DESCRIPTION')) {
         //     event.description =  this.parseStringFromCalLine(line);
         // }
+    };
+    CalendarService.prototype.parseSummaryFromCalLine = function (line, event) {
+        event.summary = this.parseStringFromCalLine(line);
+        var x = event.summary.lastIndexOf('(');
+        if (x != -1) {
+            event.code = event.summary.substr(x + 1, event.summary.length - 1);
+            event.summary = event.summary.substr(0, x - 1);
+        }
     };
     CalendarService.prototype.parseStringFromCalLine = function (line) {
         var x = line.lastIndexOf(':');
@@ -221,25 +220,6 @@ var CalendarService = (function () {
         return new Promise(function (resolve, reject) {
             fs.readFile(file, 'utf8', function (err, data) {
                 resolve(data);
-            });
-        });
-    };
-    CalendarService.prototype.calendarData = function () {
-        var _this = this;
-        var file = this.calendarCacheFilePath();
-        return new Promise(function (resolve, reject) {
-            fs.stat(file, function (stat) {
-                console.log(stat);
-                if (stat.errno == -2) {
-                    _this.fetchCalendar()
-                        .then(_this.writeCalendarToCache.bind(_this))
-                        .then(_this.readCalendarFromCache)
-                        .then(resolve);
-                }
-                else {
-                    _this.readCalendarFromCache()
-                        .then(resolve);
-                }
             });
         });
     };

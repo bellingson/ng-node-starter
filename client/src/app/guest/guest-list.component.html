@@ -1,6 +1,9 @@
 <div>
     <div class="pull-left">
-        <button (click)="refresh()">Refresh</button>
+        <strong>Last Update: </strong> {{lastUpdate | date: 'M-d-yyyy h:mm a' }}
+    </div>
+    <div class="pull-right">
+        <button class="btn btn-primary" (click)="refresh()">Refresh</button>
     </div>
 </div>
 
@@ -10,6 +13,7 @@
     <thead>
     <tr>
         <th>Summary</th>
+        <th>Days Until</th>
         <th>Check In</th>
         <th>Check Out</th>
         <th>Days</th>
@@ -26,10 +30,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let g of guests" (click)="selectGuest(g)">
+    <tr *ngFor="let g of guests" (click)="selectGuest(g)" [class]="statusCss(g)">
         <td>
             {{g.summary}}
         </td>
+        <td>{{g.daysAway}}</td>
         <td>{{g.start | date }}</td>
         <td>{{g.end | date }}</td>
         <td>{{g.days}}</td>

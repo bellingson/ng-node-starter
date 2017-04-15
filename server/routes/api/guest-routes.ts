@@ -5,6 +5,7 @@ import { CalendarService } from '../../service/calendar.service';
 export const router = express.Router();
 
 var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json({ type: 'application/*+json'});
 
 import * as _ from 'lodash';
 
@@ -19,13 +20,18 @@ router.get('/',function(req, res, next) {
 
 });
 
-var jsonParser = bodyParser.json({ type: 'application/*+json'});
+router.get('/last_update', jsonParser, function(req, res, next) {
+
+    let r = { lastUpdate: calendarService.lastUpdate() };
+    res.send(r);
+
+});
+
+
 
 router.put('/:guestId',jsonParser, function(req, res, next) {
 
     let guest = _.omit(req.body, '_id');
-
-    console.log(guest);
 
     calendarService.updateGuest(guest)
         .subscribe(r => {
@@ -36,13 +42,9 @@ router.put('/:guestId',jsonParser, function(req, res, next) {
 
 router.post('/refresh_calendar',jsonParser, function(req, res, next) {
 
-    calendarService.fetchCalendar().then(data => {
-
+    calendarService.refreshCalendar().then(r => {
+        console.log('refreshed calendar..');
+        res.send(r);
     });
 
 });
-
-
-
-
-

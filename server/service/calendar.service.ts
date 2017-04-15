@@ -31,9 +31,27 @@ export class CalendarService {
         return path.join(this.dataDirPath(), '/ical.ics');
     }
 
-    calendarJsonFilePath() {
-        return path.join(this.dataDirPath(), '/ical.json');
+    lastUpdate() {
+
+        let stat = fs.statSync(this.calendarCacheFilePath());
+        return stat.mtime;
     }
+
+    refreshCalendar() : Promise<any> {
+
+        return new Promise((resolve, reject) => {
+
+            this.fetchCalendar()
+                .then(this.writeCalendarToCache.bind(this))
+                .then(this.importCalendarToDb.bind(this))
+                .then(() => {
+                    resolve(OK);
+                })
+                .catch(reject);
+        });
+
+    }
+
 
     fetchCalendar() {
 
@@ -49,10 +67,16 @@ export class CalendarService {
 
         return new Promise((resolve, reject) => {
 
+            let c = 0;
+
             https.get(options, res => {
 
+                // console.log('statusCode:', res.statusCode);
+                // console.log('headers:', res.headers);
+
                 res.on('data', d => {
-                        resolve(d);
+
+                    resolve(d.toString());
                 });
             });
         });
@@ -65,11 +89,9 @@ export class CalendarService {
 
         let file = this.calendarCacheFilePath();
 
-        console.log(file);
-
         return new Promise((resolve, reject) => {
 
-            fs.writeFile(file, 'utf8', data, (err) => {
+            fs.writeFile(file, data, 'utf8', (err) => {
                 if(err) {
                     reject(err);
                     return;
@@ -81,23 +103,6 @@ export class CalendarService {
 
     }
 
-
-    readCalendarFromJson() {
-
-        return new Promise((resolve, reject) => {
-
-            let file = this.calendarJsonFilePath();
-
-            fs.readFile(file, 'utf8', (err, data) => {
-
-                resolve(JSON.parse(data));
-            });
-
-
-        });
-
-
-    }
 
     importCalendarToDb() {
 
@@ -145,7 +150,7 @@ export class CalendarService {
 
         return new Promise<void>((resolve, reject) => {
 
-            guests.find({uid: event.uid }).toArray((err, docs) => {
+            guests.find({code: event.code }).toArray((err, docs) => {
 
                 if(docs.length == 0) {
                     guests.insertOne(event, (err, result) => {
@@ -194,14 +199,7 @@ export class CalendarService {
 
             let guests = db.collection('guests');
 
-            console.log('start update...');
-
             guests.updateOne({ uid: guest.uid }, guest, (err, ur) => {
-
-                console.log('update... complete');
-
-                console.log(err);
-
 
                 db.close();
 
@@ -221,26 +219,6 @@ export class CalendarService {
         return r;
     }
 
-
-
-    translateCalendarToJson() {
-
-        let file = this.calendarJsonFilePath();
-
-        return new Promise((resolve, reject) => {
-
-            this.readCalendarStream().then(events => {
-
-                let json = JSON.stringify(events, null, '\t');
-                fs.writeFile(file, json, err => {
-                      resolve();
-                });
-
-            }).catch(reject);
-
-
-        });
-    }
 
     readCalendarStream() {
 
@@ -294,7 +272,7 @@ export class CalendarService {
         }
 
         if(_.startsWith(line,'SUMMARY')) {
-            event.summary =  this.parseStringFromCalLine(line);
+            this.parseSummaryFromCalLine(line, event);
         }
 
         if(_.startsWith(line,'UID')) {
@@ -307,6 +285,17 @@ export class CalendarService {
         // }
 
     }
+
+    parseSummaryFromCalLine(line, event) {
+        event.summary =  this.parseStringFromCalLine(line);
+        let x = event.summary.lastIndexOf('(');
+        if(x != -1) {
+            event.code = event.summary.substr(x+1, event.summary.length-1);
+            event.summary = event.summary.substr(0,x-1);
+        }
+
+    }
+
 
     parseStringFromCalLine(line) {
 
@@ -347,31 +336,7 @@ export class CalendarService {
 
     }
 
-    calendarData() {
 
-        let file = this.calendarCacheFilePath();
-
-        return new Promise((resolve, reject) => {
-
-                fs.stat(file, stat =>   {
-                    console.log(stat);
-                    if(stat.errno == -2) {
-                        this.fetchCalendar()
-                            .then(this.writeCalendarToCache.bind(this))
-                            .then(this.readCalendarFromCache)
-                            .then(resolve);
-                    } else {
-                        this.readCalendarFromCache()
-                            .then(resolve);
-                    }
-                });
-
-            });
-
-
-
-
-    }
 
 
 }

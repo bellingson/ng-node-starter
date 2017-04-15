@@ -2,5 +2,12 @@
 table {
   tbody {
     tr:hover { cursor: pointer; background: yellow; }
+
+    tr.warning td {
+       background: orange;
+    }
+
   }
+
+
 }

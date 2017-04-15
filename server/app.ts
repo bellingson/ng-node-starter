@@ -48,5 +48,5 @@ app.use(function(err, req, res, next) {
 
 const calendarService = new CalendarService();
 
-calendarService.importCalendarToDb()
+// calendarService.importCalendarToDb()
 

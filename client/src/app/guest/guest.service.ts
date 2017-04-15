@@ -6,6 +6,9 @@ import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 
+
+import * as _ from 'lodash';
+
 @Injectable()
 export class GuestService {
 
@@ -14,7 +17,7 @@ export class GuestService {
   constructor(private http: Http) { }
 
   query() : Observable<Array<any>> {
-     return this.http.get(this.baseUrl).map(r => r.json() );
+     return this.http.get(this.baseUrl).map(r => r.json());
   }
 
   save(guest) : Observable<any> {
@@ -30,6 +33,11 @@ export class GuestService {
       return this.http.post(url,{}).map(r => r.json());
    }
 
+   lastUpdate() : Observable<any> {
+
+      let url = this.baseUrl + '/last_update';
+      return this.http.get(url).map(r => r.json());
+   }
 
 
 }

@@ -5,7 +5,7 @@ VERSION:2.0
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170416
 DTSTART;VALUE=DATE:20170414
-UID:-a012u14ry5nj-jytcl4mxku5d@airbnb.com
+UID:q9nc4oahgkbf-mkur3u8socqc@airbnb.com
 DESCRIPTION:CHECKIN: 04/14/2017\nCHECKOUT: 04/16/2017\nNIGHTS: 2\nPHONE: 
  +1 (231) 215-9188\nEMAIL: wade-vn2yodgqv08r3ev3@guest.airbnb.com\nPROPER
  TY: Remodeled House Downtown\n
@@ -15,7 +15,7 @@ END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170423
 DTSTART;VALUE=DATE:20170421
-UID:-a012u14ry5nj-e24i74w7y39z@airbnb.com
+UID:q9nc4oahgkbf-h107o01jcsay@airbnb.com
 DESCRIPTION:CHECKIN: 04/21/2017\nCHECKOUT: 04/23/2017\nNIGHTS: 2\nPHONE: 
  +1 (440) 781-3219\nEMAIL: susan-b978z5vj4ieahclx@guest.airbnb.com\nPROPE
  RTY: Remodeled House Downtown\n
@@ -25,7 +25,7 @@ END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170507
 DTSTART;VALUE=DATE:20170505
-UID:-a012u14ry5nj-g42zvbxcengx@airbnb.com
+UID:q9nc4oahgkbf--il6yysar93a4@airbnb.com
 DESCRIPTION:CHECKIN: 05/05/2017\nCHECKOUT: 05/07/2017\nNIGHTS: 2\nPHONE: 
  +1 (313) 617-0128\nEMAIL: beth-qgq27s2r3pakv39y@guest.airbnb.com\nPROPER
  TY: Remodeled House Downtown\n\nJulie - Graduation
@@ -35,7 +35,7 @@ END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170527
 DTSTART;VALUE=DATE:20170526
-UID:-a012u14ry5nj--5il7o490vmjz@airbnb.com
+UID:q9nc4oahgkbf-e13uvgf5uck@airbnb.com
 DESCRIPTION:CHECKIN: 05/26/2017\nCHECKOUT: 05/27/2017\nNIGHTS: 1\nPHONE: 
  +1 (734) 678-0074\nEMAIL: peter-hzpri3zqo2a6nb7g@guest.airbnb.com\nPROPE
  RTY: Remodeled House Downtown\n
@@ -45,7 +45,7 @@ END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170707
 DTSTART;VALUE=DATE:20170704
-UID:-a012u14ry5nj--dybk9d6flgfp@airbnb.com
+UID:q9nc4oahgkbf--mez4wpinze76@airbnb.com
 DESCRIPTION:CHECKIN: 07/04/2017\nCHECKOUT: 07/07/2017\nNIGHTS: 3\nPHONE: 
  +1 (248) 505-2476\nEMAIL: mary-6o0x8fmkzri7bpjn@guest.airbnb.com\nPROPER
  TY: Remodeled House Downtown\n
@@ -55,7 +55,7 @@ END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170713
 DTSTART;VALUE=DATE:20170711
-UID:-a012u14ry5nj-6hxyr1oofi0z@airbnb.com
+UID:q9nc4oahgkbf-q91eesk650pi@airbnb.com
 DESCRIPTION:CHECKIN: 07/11/2017\nCHECKOUT: 07/13/2017\nNIGHTS: 2\nPHONE: 
  +1 (810) 569-8308\nEMAIL: rachel-cqfkuvaqdb324t7i@guest.airbnb.com\nPROP
  ERTY: Remodeled House Downtown\n
@@ -65,7 +65,7 @@ END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170728
 DTSTART;VALUE=DATE:20170716
-UID:-a012u14ry5nj--e0gq7j28pq8r@airbnb.com
+UID:q9nc4oahgkbf--rxp2q06wjca0@airbnb.com
 DESCRIPTION:CHECKIN: 07/16/2017\nCHECKOUT: 07/28/2017\nNIGHTS: 12\nPHONE:
   +1 (859) 250-3955\nEMAIL: sue-l1ziiwfe1jrjhs6c@guest.airbnb.com\nPROPER
  TY: Remodeled House Downtown\n
@@ -73,9 +73,19 @@ SUMMARY:Sue Schwartz (HMRA9QBQT5)
 LOCATION:Remodeled House Downtown
 END:VEVENT
 BEGIN:VEVENT
+DTEND;VALUE=DATE:20170731
+DTSTART;VALUE=DATE:20170728
+UID:q9nc4oahgkbf--3btli63bvyr0@airbnb.com
+DESCRIPTION:CHECKIN: 07/28/2017\nCHECKOUT: 07/31/2017\nNIGHTS: 3\nPHONE: 
+ +1 (313) 549-8811\nEMAIL: gaylene-cq84biimow848pz5@guest.airbnb.com\nPRO
+ PERTY: Remodeled House Downtown\n
+SUMMARY:Gaylene Mccomas (HM53BZBFDF)
+LOCATION:Remodeled House Downtown
+END:VEVENT
+BEGIN:VEVENT
 DTEND;VALUE=DATE:20170813
 DTSTART;VALUE=DATE:20170810
-UID:-a012u14ry5nj--lajqeewbg5ip@airbnb.com
+UID:q9nc4oahgkbf-2uvrtro7h3cy@airbnb.com
 DESCRIPTION:CHECKIN: 08/10/2017\nCHECKOUT: 08/13/2017\nNIGHTS: 3\nPHONE: 
  +1 (989) 600-8902\nEMAIL: cindy-dc32fzrc2u7pvbtj@guest.airbnb.com\nPROPE
  RTY: Remodeled House Downtown\n
@@ -85,7 +95,7 @@ END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170825
 DTSTART;VALUE=DATE:20170815
-UID:-a012u14ry5nj-859wyvs9wpih@airbnb.com
+UID:q9nc4oahgkbf-pzlsis5jm3gc@airbnb.com
 DESCRIPTION:CHECKIN: 08/15/2017\nCHECKOUT: 08/25/2017\nNIGHTS: 10\nPHONE:
   +1 (585) 704-8455\nEMAIL: patrick-0ifvebh1nrs0ew4u@guest.airbnb.com\nPR
  OPERTY: Remodeled House Downtown\n
@@ -95,7 +105,7 @@ END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170910
 DTSTART;VALUE=DATE:20170908
-UID:-a012u14ry5nj--akrq1k403jrn@airbnb.com
+UID:q9nc4oahgkbf--kmyi5szdj540@airbnb.com
 DESCRIPTION:CHECKIN: 09/08/2017\nCHECKOUT: 09/10/2017\nNIGHTS: 2\nPHONE: 
  +1 (269) 207-9280\nEMAIL: shannon-hlswed3lzm1hv4dr@guest.airbnb.com\nPRO
  PERTY: Remodeled House Downtown\n
@@ -105,37 +115,25 @@ END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170411
 DTSTART;VALUE=DATE:20170402
-UID:-uf248h2xsmmr--xawg62zmu4f6@airbnb.com
-SUMMARY:Not available
-END:VEVENT
-BEGIN:VEVENT
-DTEND;VALUE=DATE:20170414
-DTSTART;VALUE=DATE:20170413
-UID:-uf248h2xsmmr-8gj35mnps08k@airbnb.com
-SUMMARY:Not available
-END:VEVENT
-BEGIN:VEVENT
-DTEND;VALUE=DATE:20170514
-DTSTART;VALUE=DATE:20170507
-UID:-uf248h2xsmmr--b80rvu2mxetb@airbnb.com
+UID:pomfys6yeodv--3e1hfnbq63ud@airbnb.com
 SUMMARY:Not available
 END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170827
 DTSTART;VALUE=DATE:20170825
-UID:-uf248h2xsmmr--3rp23qqh9oh6@airbnb.com
+UID:pomfys6yeodv--j9bcxyxql5tw@airbnb.com
 SUMMARY:Julie's B-Day
 END:VEVENT
 BEGIN:VEVENT
 DTEND;VALUE=DATE:20170905
 DTSTART;VALUE=DATE:20170901
-UID:-uf248h2xsmmr-hs1j4y1zizf7@airbnb.com
+UID:pomfys6yeodv--kwtln38ms6jy@airbnb.com
 SUMMARY:Not available
 END:VEVENT
 BEGIN:VEVENT
-DTEND;VALUE=DATE:20180415
-DTSTART;VALUE=DATE:20171010
-UID:-uf248h2xsmmr-9tizza5ft7m5@airbnb.com
+DTEND;VALUE=DATE:20180416
+DTSTART;VALUE=DATE:20171012
+UID:pomfys6yeodv--k2v5gw4od14j@airbnb.com
 SUMMARY:Not available
 END:VEVENT
 END:VCALENDAR

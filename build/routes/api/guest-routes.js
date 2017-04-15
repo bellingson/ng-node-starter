@@ -4,6 +4,7 @@ var express = require("express");
 var calendar_service_1 = require("../../service/calendar.service");
 exports.router = express.Router();
 var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json({ type: 'application/*+json' });
 var _ = require("lodash");
 var calendarService = new calendar_service_1.CalendarService();
 /* GET home page. */
@@ -12,16 +13,20 @@ exports.router.get('/', function (req, res, next) {
         res.send(guests);
     });
 });
-var jsonParser = bodyParser.json({ type: 'application/*+json' });
+exports.router.get('/last_update', jsonParser, function (req, res, next) {
+    var r = { lastUpdate: calendarService.lastUpdate() };
+    res.send(r);
+});
 exports.router.put('/:guestId', jsonParser, function (req, res, next) {
     var guest = _.omit(req.body, '_id');
-    console.log(guest);
     calendarService.updateGuest(guest)
         .subscribe(function (r) {
         res.send(r);
     });
 });
 exports.router.post('/refresh_calendar', jsonParser, function (req, res, next) {
-    calendarService.fetchCalendar().then(function (data) {
+    calendarService.refreshCalendar().then(function (r) {
+        console.log('refreshed calendar..');
+        res.send(r);
     });
 });
