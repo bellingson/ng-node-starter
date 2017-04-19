@@ -34,7 +34,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/demo4.iml" filepath="$PROJECT_DIR$/demo4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/node-ng-starter.iml" filepath="$PROJECT_DIR$/node-ng-starter.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6">

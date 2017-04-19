@@ -1,10 +1,10 @@
-import { BnbClientPage } from './app.po';
+import { ClientPage } from './app.po';
 
-describe('bnb-client App', () => {
-  let page: BnbClientPage;
+describe('client App', () => {
+  let page: ClientPage;
 
   beforeEach(() => {
-    page = new BnbClientPage();
+    page = new ClientPage();
   });
 
   it('should display message saying app works', () => {

@@ -5,10 +5,8 @@ import * as logger from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 
-import { CalendarService } from './service/calendar.service';
-
 import * as index from './routes/index';
-import * as guestApi from './routes/api/guest-routes';
+import * as myApi from './routes/api/my.routes';
 
 export const app = express();
 
@@ -30,12 +28,12 @@ console.log(path.join(__dirname, 'app'));
 app.use(express.static(path.join(__dirname, 'app')));
 
 app.use('/', index.router);
-app.use('/api/guest', guestApi.router);
+app.use('/api/hello', myApi.router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
+    let err = new Error('Not Found');
+    err['status'] = 404;
     next(err);
 });
 
@@ -50,8 +48,4 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-
-const calendarService = new CalendarService();
-
-// calendarService.importCalendarToDb()
 
